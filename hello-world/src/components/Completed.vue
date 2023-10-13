@@ -69,6 +69,7 @@ export default {
     };
   },
   methods: {
+    // fix
     search() {
       const query = this.searchQuery.toLowerCase();
       if (query === "") {
