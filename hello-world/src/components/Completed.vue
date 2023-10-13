@@ -15,6 +15,7 @@
         color="rgb(79,108,205)"
         type="search"
         @input="search"
+        v-model="searchQuery"
         label="Cerca"
       ></v-text-field>
 
@@ -64,11 +65,12 @@ export default {
       username: "",
       creators: [],
       selectedCreator: "",
+      searchQuery: "",
     };
   },
   methods: {
-    search(event) {
-      const query = event.target.value.toLowerCase();
+    search() {
+      const query = this.searchQuery.toLowerCase();
       if (query === "") {
         this.completedTodos = [...this.originalCompletedTodos];
       } else {
@@ -106,8 +108,7 @@ export default {
       this.creators = Array.from(
         new Set(this.completedTodos.map((todo) => todo.doneBy))
       );
-      this.originalCompletedTodos =
-        JSON.parse(localStorage.getItem("completedTodos")) || [];
+      this.originalCompletedTodos = [...this.completedTodos];
     } catch (error) {
       console.error(
         "Errore durante il caricamento dei dati da localStorage:",
